@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arwanda · Learning Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --surface2: #1c2030;
+    --border: #252a38;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --ui: #8b949e;
+    --accent-uiux: #ff6b35;
+    --accent-ai: #00d4aa;
+    --accent-ghl: #7c5cfc;
+    --accent-nocode: #f7c948;
+    --glow-uiux: rgba(255,107,53,0.15);
+    --glow-ai: rgba(0,212,170,0.15);
+    --glow-ghl: rgba(124,92,252,0.15);
+    --glow-nocode: rgba(247,201,72,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* bg grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  h1 span {
+    background: linear-gradient(90deg, var(--accent-uiux), var(--accent-ai), var(--accent-ghl), var(--accent-nocode));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* TRACK */
+  .track {
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+    transition: box-shadow 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .track:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .track-header:hover { background: var(--surface2); }
+  .track.open .track-header { border-bottom-color: var(--border); }
+
+  .track-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .track-meta { flex: 1; }
+  .track-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .track-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .track-right { display: flex; align-items: center; gap: 12px; }
+
+  .progress-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .progress-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform 0.3s;
+  }
+  .track.open .chevron { transform: rotate(180deg); }
+
+  /* PROGRESS BAR */
+  .track-progress-bar {
+    height: 3px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .track-progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* MODULES */
+  .track-body {
+    display: none;
+    padding: 16px 24px 20px;
+  }
+  .track.open .track-body { display: block; }
+
+  .modules-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .module-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  }
+
+  .module-item:hover {
+    background: var(--surface2);
+    transform: translateX(3px);
+  }
+
+  .module-item.done {
+    border-color: transparent;
+    opacity: 0.6;
+  }
+
+  .module-item.done .module-title {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .checkbox {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+    font-size: 11px;
+  }
+
+  .module-item.done .checkbox {
+    border-color: currentColor;
+    color: inherit;
+  }
+
+  .module-content { flex: 1; }
+  .module-title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .module-tags {
+    display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px;
+  }
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .module-note-area {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .module-item.expanded .module-note-area { display: block; }
+
+  .note-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 10px 12px;
+    resize: vertical;
+    min-height: 70px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .note-input:focus { border-color: var(--muted); }
+  .note-input::placeholder { color: var(--muted); }
+
+  .add-btn {
+    background: var(--surface2);
+    border: 1px dashed var(--border);
+    color: var(--muted);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    margin-top: 6px;
+    transition: all 0.2s;
+  }
+  .add-btn:hover { border-color: var(--ui); color: var(--text); background: var(--bg); }
+
+  /* JOURNAL */
+  .journal-section {
+    margin-top: 40px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .journal-input-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .journal-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 16px 18px;
+    resize: none;
+    min-height: 90px;
+    outline: none;
+    line-height: 1.6;
+  }
+  .journal-textarea::placeholder { color: var(--muted); }
+
+  .journal-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 18px;
+    border-top: 1px solid var(--border);
+  }
+
+  .date-label { font-size: 12px; color: var(--muted); }
+
+  .save-btn {
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .save-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .save-btn:active { transform: translateY(0); }
+
+  .journal-entries { display: flex; flex-direction: column; gap: 10px; }
+
+  .journal-entry {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .entry-date {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .entry-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .entry-delete {
+    float: right;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 0 0 10px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .entry-delete:hover { opacity: 1; }
+
+  /* RESET BTN */
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 24px;
+  }
+  .reset-btn:hover { border-color: #e55; color: #e55; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .track-header { padding: 16px; }
+    .track-body { padding: 12px 16px 16px; }
+    .progress-pill { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="eyebrow">📍 Arwanda's Learning Journey</div>
+    <h1>Skill <span>Roadmap</span></h1>
+    <p class="subtitle">UI/UX · AI · GoHighLevel · Web No-Code — tracked & terstruktur</p>
+  </header>
+
+  <div class="stats-bar" id="statsBar">
+    <div class="stat-card">
+      <div class="stat-num" id="statDone">0</div>
+      <div class="stat-label">Selesai</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">0</div>
+      <div class="stat-label">Total Modul</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statPct">0%</div>
+      <div class="stat-label">Progress</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statJournal">0</div>
+      <div class="stat-label">Catatan Harian</div>
+    </div>
+  </div>
+
+  <div id="tracksContainer"></div>
+
+  <!-- JOURNAL -->
+  <div class="journal-section">
+    <div class="section-title">📝 Catatan Harian</div>
+    <div class="journal-input-wrap">
+      <textarea class="journal-textarea" id="journalInput" placeholder="Tulis apa yang kamu pelajari hari ini, hambatan, atau ide..."></textarea>
+      <div class="journal-footer">
+        <span class="date-label" id="todayDate"></span>
+        <button class="save-btn" onclick="saveJournal()">Simpan</button>
+      </div>
+    </div>
+    <div class="journal-entries" id="journalEntries"></div>
+  </div>
+
+  <button class="reset-btn" onclick="if(confirm('Reset semua progress?')) { localStorage.clear(); location.reload(); }">⚠️ Reset Semua Progress</button>
+
+</div>
+
+<script>
+const TRACKS = [
+  {
+    id: 'uiux',
+    name: 'UI/UX Design',
+    icon: '🎨',
+    desc: 'Desain interface, riset user, prototyping',
+    accent: 'var(--accent-uiux)',
+    glow: 'var(--glow-uiux)',
+    modules: [
+      { id: 'u1', title: 'Dasar-dasar UI vs UX — apa bedanya & kenapa penting', tags: ['teori', 'dasar'] },
+      { id: 'u2', title: 'Prinsip desain: tipografi, warna, spacing, grid', tags: ['visual', 'dasar'] },
+      { id: 'u3', title: 'User research & personas — siapa user kita?', tags: ['riset'] },
+      { id: 'u4', title: 'Wireframing — sketsa layout tanpa detail visual', tags: ['praktik'] },
+      { id: 'u5', title: 'Figma: auto layout, components, variants', tags: ['figma', 'praktik'] },
+      { id: 'u6', title: 'Prototype interaktif di Figma', tags: ['figma', 'praktik'] },
+      { id: 'u7', title: 'User testing & feedback loop', tags: ['riset', 'lanjutan'] },
+      { id: 'u8', title: 'Design system & handoff ke developer', tags: ['lanjutan'] },
+    ]
+  },
+  {
+    id: 'ai',
+    name: 'AI Tools & Automation',
+    icon: '🤖',
+    desc: 'ChatGPT, Claude, Make.com, n8n, Manychat, Voiceflow',
+    accent: 'var(--accent-ai)',
+    glow: 'var(--glow-ai)',
+    modules: [
+      { id: 'a1', title: 'Prompt engineering — cara nulis prompt yang efektif', tags: ['dasar', 'prompt'] },
+      { id: 'a2', title: 'ChatGPT & Claude untuk konten & bisnis', tags: ['tools', 'dasar'] },
+      { id: 'a3', title: 'Make.com — automation pertama (trigger + action)', tags: ['automation', 'make'] },
+      { id: 'a4', title: 'n8n — self-hosted automation, flow dasar', tags: ['automation', 'n8n'] },
+      { id: 'a5', title: 'Manychat — chatbot WhatsApp/IG untuk bisnis lokal', tags: ['chatbot', 'manychat'] },
+      { id: 'a6', title: 'Voiceflow — bangun AI chatbot percakapan', tags: ['chatbot', 'voiceflow'] },
+      { id: 'a7', title: 'Integrasikan AI ke workflow klien (villa/hotel)', tags: ['bisnis', 'lanjutan'] },
+      { id: 'a8', title: 'Jual AI service: paket & pricing', tags: ['bisnis', 'monetize'] },
+    ]
+  },
+  {
+    id: 'ghl',
+    name: 'GoHighLevel',
+    icon: '⚡',
+    desc: 'CRM, funnel, pipeline, automation marketing',
+    accent: 'var(--accent-ghl)',
+    glow: 'var(--glow-ghl)',
+    modules: [
+      { id: 'g1', title: 'Orientasi GHL — dashboard, menu, istilah penting', tags: ['dasar', 'ghl'] },
+      { id: 'g2', title: 'Setup sub-account untuk klien pertama', tags: ['praktik'] },
+      { id: 'g3', title: 'Buat funnel halaman landing sederhana', tags: ['funnel', 'praktik'] },
+      { id: 'g4', title: 'Pipeline & CRM — kelola leads dari awal ke deal', tags: ['crm'] },
+      { id: 'g5', title: 'Automation: follow-up otomatis via SMS/email', tags: ['automation'] },
+      { id: 'g6', title: 'Calendar & booking system', tags: ['tools'] },
+      { id: 'g7', title: 'Reporting & analytics — baca data klien', tags: ['analytics', 'lanjutan'] },
+      { id: 'g8', title: 'Tawarkan GHL sebagai layanan ke UMKM Bali', tags: ['bisnis', 'monetize'] },
+    ]
+  },
+  {
+    id: 'nocode',
+    name: 'Web No-Code',
+    icon: '🌐',
+    desc: 'Webflow, Framer, Notion, WordPress/Elementor',
+    accent: 'var(--accent-nocode)',
+    glow: 'var(--glow-nocode)',
+    modules: [
+      { id: 'n1', title: 'Perbandingan platform: Webflow vs Framer vs WordPress', tags: ['riset', 'dasar'] },
+      { id: 'n2', title: 'Webflow: grid, flexbox, responsive basics', tags: ['webflow', 'dasar'] },
+      { id: 'n3', title: 'Framer: animasi dan landing page modern', tags: ['framer', 'praktik'] },
+      { id: 'n4', title: 'WordPress + Elementor — website klien cepat', tags: ['wordpress', 'klien'] },
+      { id: 'n5', title: 'SEO on-page dasar untuk website klien', tags: ['seo'] },
+      { id: 'n6', title: 'Webflow CMS — konten dinamis tanpa coding', tags: ['webflow', 'lanjutan'] },
+      { id: 'n7', title: 'Integrasikan form & payment ke website', tags: ['praktik', 'lanjutan'] },
+      { id: 'n8', title: 'Paket website jadi untuk villa/resto Bali', tags: ['bisnis', 'monetize'] },
+    ]
+  }
+];
+
+let state = {};
+
+function loadState() {
+  try {
+    state = JSON.parse(localStorage.getItem('arwanda_roadmap') || '{}');
+  } catch { state = {}; }
+}
+
+function saveState() {
+  localStorage.setItem('arwanda_roadmap', JSON.stringify(state));
+  updateStats();
+}
+
+function toggleModule(trackId, moduleId) {
+  const key = `${trackId}_${moduleId}`;
+  state[key] = !state[key];
+  const el = document.querySelector(`[data-key="${key}"]`);
+  el.classList.toggle('done', state[key]);
+  el.querySelector('.checkbox').innerHTML = state[key] ? '✓' : '';
+  saveState();
+  updateTrackProgress(trackId);
+}
+
+function toggleExpand(e, el) {
+  // don't expand if clicking checkbox
+  if (e.target.closest('.checkbox')) return;
+  el.classList.toggle('expanded');
+}
+
+function updateTrackProgress(trackId) {
+  const track = TRACKS.find(t => t.id === trackId);
+  const done = track.modules.filter(m => state[`${trackId}_${m.id}`]).length;
+  const total = track.modules.length;
+  const pct = Math.round(done / total * 100);
+  const fill = document.querySelector(`#track_${trackId} .track-progress-fill`);
+  const pill = document.querySelector(`#track_${trackId} .progress-pill span`);
+  if (fill) fill.style.width = pct + '%';
+  if (pill) pill.textContent = `${done}/${total}`;
+}
+
+function updateStats() {
+  let done = 0, total = 0;
+  TRACKS.forEach(tr => {
+    tr.modules.forEach(m => {
+      total++;
+      if (state[`${tr.id}_${m.id}`]) done++;
+    });
+  });
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statPct').textContent = total ? Math.round(done/total*100) + '%' : '0%';
+  const journals = JSON.parse(localStorage.getItem('arwanda_journal') || '[]');
+  document.getElementById('statJournal').textContent = journals.length;
+}
+
+function renderTracks() {
+  const container = document.getElementById('tracksContainer');
+  TRACKS.forEach((track, i) => {
+    const done = track.modules.filter(m => state[`${track.id}_${m.id}`]).length;
+    const pct = Math.round(done / track.modules.length * 100);
+
+    const el = document.createElement('div');
+    el.className = 'track';
+    el.id = `track_${track.id}`;
+    el.style.animationDelay = `${0.15 + i * 0.08}s`;
+
+    el.innerHTML = `
+      <div class="track-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="track-icon" style="background:${track.glow}; color:${track.accent}">${track.icon}</div>
+        <div class="track-meta">
+          <div class="track-name" style="color:${track.accent}">${track.name}</div>
+          <div class="track-desc">${track.desc}</div>
+        </div>
+        <div class="track-right">
+          <div class="progress-pill">
+            <div class="progress-dot" style="background:${track.accent}"></div>
+            <span>${done}/${track.modules.length}</span>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+      </div>
+      <div class="track-progress-bar">
+        <div class="track-progress-fill" style="background:${track.accent}; width:${pct}%"></div>
+      </div>
+      <div class="track-body">
+        <div class="modules-list">
+          ${track.modules.map(m => {
+            const key = `${track.id}_${m.id}`;
+            const isDone = !!state[key];
+            const note = state[`note_${key}`] || '';
+            return `
+              <div class="module-item ${isDone ? 'done' : ''}" data-key="${key}"
+                   onclick="toggleExpand(event, this)">
+                <div class="checkbox" onclick="event.stopPropagation(); toggleModule('${track.id}','${m.id}')"
+                     style="color:${track.accent}">${isDone ? '✓' : ''}</div>
+                <div class="module-content">
+                  <div class="module-title">${m.title}</div>
+                  <div class="module-tags">
+                    ${m.tags.map(t => `<span class="tag" style="background:${track.glow}; color:${track.accent}">${t}</span>`).join('')}
+                  </div>
+                  <div class="module-note-area">
+                    <textarea class="note-input" placeholder="Catatan untuk modul ini..." rows="2"
+                      oninput="saveNote('${key}', this.value)"
+                    >${note}</textarea>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function saveNote(key, value) {
+  state[`note_${key}`] = value;
+  saveState();
+}
+
+// Journal
+function saveJournal() {
+  const input = document.getElementById('journalInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const journals = JSON.parse(localStorage.getItem('arwanda_journal') || '[]');
+  journals.unshift({ text, date: new Date().toISOString() });
+  localStorage.setItem('arwanda_journal', JSON.stringify(journals));
+  input.value = '';
+  renderJournal();
+  updateStats();
+}
+
+function renderJournal() {
+  const journals = JSON.parse(localStorage.getItem('arwanda_journal') || '[]');
+  const container = document.getElementById('journalEntries');
+  container.innerHTML = journals.map((j, i) => `
+    <div class="journal-entry">
+      <button class="entry-delete" onclick="deleteJournal(${i})">✕</button>
+      <div class="entry-date">${new Date(j.date).toLocaleDateString('id-ID', {weekday:'long', year:'numeric', month:'long', day:'numeric'})}</div>
+      <div class="entry-text">${j.text}</div>
+    </div>
+  `).join('');
+}
+
+function deleteJournal(i) {
+  const journals = JSON.parse(localStorage.getItem('arwanda_journal') || '[]');
+  journals.splice(i, 1);
+  localStorage.setItem('arwanda_journal', JSON.stringify(journals));
+  renderJournal();
+  updateStats();
+}
+
+// Date
+document.getElementById('todayDate').textContent = new Date().toLocaleDateString('id-ID', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+});
+
+// Init
+loadState();
+renderTracks();
+renderJournal();
+updateStats();
+TRACKS.forEach(t => updateTrackProgress(t.id));
+</script>
+</body>
+</html>
